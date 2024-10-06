@@ -15,3 +15,5 @@ TODO: database
 TODO: bulma for front end
 TODO: blade templates for frontend
 
+TODO: copy hubspots site
+TODO: pro version vs free version

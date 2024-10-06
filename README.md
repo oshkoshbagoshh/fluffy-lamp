@@ -108,22 +108,23 @@ php artisan queue:work
 ### Database Schema
 The seo_results table has the following structure:
 
-Column Name	Type	Description
-id	bigint(20) unsigned	Auto-incrementing primary key
-url	varchar(255)	The analyzed URL (unique)
-aria_landmarks	float	Score for ARIA landmarks
-img_alt_tags	float	Score for image alt tags
-color_contrast	float	Score for color contrast
-semantic_html	float	Score for semantic HTML usage
-broken_links	float	Score for broken links check
-meta_tags	float	Score for meta tags
-lazy_loading_images	float	Score for lazy-loaded images
-favicon	float	Score for favicon presence
-mobile_friendly	float	Score for mobile-friendliness
-input_types	float	Score for correct input types
-total_score	float	Overall SEO score
-created_at	timestamp	Record creation timestamp
-updated_at	timestamp	Record last update timestamp
+| Column Name | Type | Description |
+|-------------|------|-------------|
+| id | bigint(20) unsigned | Auto-incrementing primary key |
+| url | varchar(255) | The analyzed URL (unique) |
+| aria_landmarks | float | Score for ARIA landmarks |
+| img_alt_tags | float | Score for image alt tags |
+| color_contrast | float | Score for color contrast |
+| semantic_html | float | Score for semantic HTML usage |
+| broken_links | float | Score for broken links check |
+| meta_tags | float | Score for meta tags |
+| lazy_loading_images | float | Score for lazy-loaded images |
+| favicon | float | Score for favicon presence |
+| mobile_friendly | float | Score for mobile-friendliness |
+| input_types | float | Score for correct input types |
+| total_score | float | Overall SEO score |
+| created_at | timestamp | Record creation timestamp |
+| updated_at | timestamp | Record last update timestamp |
 
 
 ## Extending the Analyzer
