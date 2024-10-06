@@ -10,3 +10,8 @@ TODO: take in a txtfile / csv file for list of things to check
 TODO: sqlite, excel, PDF, document, website report outputs
 TODO: puppeteer / lighthouse
 
+TODO:  environment
+TODO: database
+TODO: bulma for front end
+TODO: blade templates for frontend
+
