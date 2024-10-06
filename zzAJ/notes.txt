@@ -3,4 +3,10 @@ TODO: finish documentation
 TODO: front end
 TODO: backend
 TODO: testing
+TODO: AnalyzeUrl.php
+TODO: mock sites for testing
+TODO: take in a txtfile / csv file for list of things to check
+
+TODO: sqlite, excel, PDF, document, website report outputs
+TODO: puppeteer / lighthouse
 
