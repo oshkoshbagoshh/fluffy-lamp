@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Symfony\Component\DomCrawler\Crawler;
 use GuzzleHttp\Client;
+use Symfony\Component\Process\Process;
 
 class AnalyzeUrl implements ShouldQueue
 {
@@ -31,7 +32,7 @@ class AnalyzeUrl implements ShouldQueue
         $results = [
             'aria_landmarks' => $this->checkAriaLandmarks($crawler),
             'img_alt_tags' => $this->checkImgAltTags($crawler),
-            'color_contrast' => $this->checkColorContrast($crawler),
+            'color_contrast' => $this->checkColorContrast($this->url),
             'heading_structure' => $this->checkHeadingStructure($crawler),
             'form_labels' => $this->checkFormLabels($crawler),
             'keyboard_accessibility' => $this->checkKeyboardAccessibility($crawler),
@@ -67,21 +68,16 @@ class AnalyzeUrl implements ShouldQueue
         ];
     }
 
-    protected function checkColorContrast(Crawler $crawler)
+    protected function checkColorContrast($url)
     {
-        // Note: Accurate color contrast checking often requires more complex analysis,
-        // potentially involving JavaScript rendering and computation.
-        // This is a simplified check that looks for the presence of CSS custom properties
-        // often used for theming and color management.
+        $process = new Process(['node', base_path('node_scripts/analyzeColorContrast.js'), $url]);
+        $process->run();
 
-        $hasColorVariables = $crawler->filter('style')->reduce(function (Crawler $node) {
-                return strpos($node->text(), '--color') !== false;
-            })->count() > 0;
+        if (!$process->isSuccessful()) {
+            throw new \RuntimeException($process->getErrorOutput());
+        }
 
-        return [
-            'uses_color_variables' => $hasColorVariables,
-            'note' => 'Full color contrast analysis requires client-side rendering and computation.',
-        ];
+        return json_decode($process->getOutput(), true);
     }
 
     protected function checkHeadingStructure(Crawler $crawler)
@@ -95,7 +91,12 @@ class AnalyzeUrl implements ShouldQueue
             'h6' => $crawler->filter('h6')->count(),
         ];
 
-        return $headings;
+        $isValid = $headings['h1'] === 1 && $headings['h2'] >= $headings['h3'] && $headings['h3'] >= $headings['h4'];
+
+        return [
+            'headings' => $headings,
+            'is_valid_structure' => $isValid,
+        ];
     }
 
     protected function checkFormLabels(Crawler $crawler)
@@ -103,7 +104,7 @@ class AnalyzeUrl implements ShouldQueue
         $totalInputs = $crawler->filter('input:not([type="hidden"]), select, textarea')->count();
         $labeledInputs = $crawler->filter('input:not([type="hidden"])[id], select[id], textarea[id]')->filter(function (Crawler $node) {
             $id = $node->attr('id');
-            return $node->parents()->filter('form')->filter('label[for="' . $id . '"]')->count() > 0;
+            return $node->siblings()->filter("label[for='$id']")->count() > 0;
         })->count();
 
         return [
@@ -116,13 +117,13 @@ class AnalyzeUrl implements ShouldQueue
     protected function checkKeyboardAccessibility(Crawler $crawler)
     {
         $interactiveElements = $crawler->filter('a, button, input, select, textarea')->count();
-        $tabindexCount = $crawler->filter('[tabindex]')->count();
-        $positiveTabindex = $crawler->filter('[tabindex]:not([tabindex="-1"])')->count();
+        $tabindexNegative = $crawler->filter('[tabindex="-1"]')->count();
+        $outlineNone = $crawler->filter('[style*="outline: none"], [style*="outline:none"]')->count();
 
         return [
             'interactive_elements' => $interactiveElements,
-            'elements_with_tabindex' => $tabindexCount,
-            'elements_with_positive_tabindex' => $positiveTabindex,
+            'tabindex_negative' => $tabindexNegative,
+            'outline_none' => $outlineNone,
         ];
     }
 }
