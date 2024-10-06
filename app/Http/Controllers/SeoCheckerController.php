@@ -7,7 +7,6 @@ use App\Jobs\AnalyzeUrl;
 
 class SeoCheckerController extends Controller
 {
-    //
     public function index()
     {
         return view('seo-checker');
@@ -21,15 +20,11 @@ class SeoCheckerController extends Controller
 
         $url = $request->input('url');
 
-//        dispatch the job
+        // Dispatch the job
         AnalyzeUrl::dispatch($url);
 
-//        TODO:
         // For now, we'll redirect back with a message
         // In a real application, you might want to use websockets or polling to get real-time results
-
-        return redirect()->route('home')->with('message', 'Analysis started for ' . $url . '...Results will be available soon.');
+        return redirect()->route('home')->with('message', 'Analysis started for ' . $url . '. Results will be available soon.');
     }
-
-
 }

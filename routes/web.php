@@ -1,19 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\SeoCheckerController;
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
-
-// TODO: create bookstore view  route
-
-
-Route::get('/',
-    [SeoCheckerController::class, 'index'])->name('home');
-
-Route::post('/analyze', [
-    SeoCheckerController::class, 'analyze'
-])->name('analyze');
+Route::get('/', [SeoCheckerController::class, 'index'])->name('home');
+Route::post('/analyze', [SeoCheckerController::class, 'analyze'])->name('analyze');
