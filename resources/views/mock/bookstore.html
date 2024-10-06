@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookworm's Paradise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .book {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .book img {
+            max-width: 100px;
+            height: auto;
+        }
+        footer {
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Bookworm's Paradise</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#bestsellers">Bestsellers</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="featured">
+        <h2>Featured Books</h2>
+        <div class="book">
+            <img src="https://via.placeholder.com/100x150" alt="">
+            <h3>The Great Gatsby</h3>
+            <p>By F. Scott Fitzgerald</p>
+            <button onclick="alert('Added to cart!')">Add to Cart</button>
+        </div>
+        <div class="book">
+            <img src="https://via.placeholder.com/100x150" alt="To Kill a Mockingbird book cover">
+            <h3>To Kill a Mockingbird</h3>
+            <p>By Harper Lee</p>
+            <button onclick="alert('Added to cart!')">Add to Cart</button>
+        </div>
+    </section>
+
+    <section id="categories">
+        <h2>Categories</h2>
+        <ul>
+            <li><a href="#">Fiction</a></li>
+            <li><a href="#">Non-fiction</a></li>
+            <li><a href="#">Mystery</a></li>
+            <li><a href="#">Sci-Fi</a></li>
+            <li><a href="#">Biography</a></li>
+        </ul>
+    </section>
+
+    <section id="newsletter">
+        <h2>Subscribe to Our Newsletter</h2>
+        <form>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2023 Bookworm's Paradise. All rights reserved.</p>
+</footer>
+
+<script>
+    // This is just a placeholder for lazy loading implementation
+    document.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOM fully loaded and parsed');
+    });
+</script>
+</body>
+</html>
