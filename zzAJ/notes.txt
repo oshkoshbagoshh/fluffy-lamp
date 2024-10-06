@@ -1,0 +1,6 @@
+TODO: finish score calculation jobs
+TODO: finish documentation
+TODO: front end
+TODO: backend
+TODO: testing
+
